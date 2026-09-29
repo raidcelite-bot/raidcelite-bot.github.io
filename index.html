@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Couture Elite | كوتور إيليت - بيع بالجملة</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- شريط الترحيب والضمانات -->
+    <div class="top-announcement-bar">
+        <span>مرحباً بكم! بيع بالجملة فقط - خياطة فاخرة لزينة المنازل، أكسسوارات النساء وشعر 🇩🇿</span>
+    </div>
+
+    <!-- الهيدر العلوي -->
+    <header class="app-header">
+        <div class="header-right">
+            <button class="settings-btn" onclick="openAdminPanel()" title="لوحة التحكم">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+        </div>
+        <div class="header-left">
+            <div class="store-info">
+                <h2>Couture Elite</h2>
+                <span>كوتور إيليت - بالجملة</span>
+            </div>
+            <div class="avatar">CE</div>
+        </div>
+    </header>
+
+    <main class="app-content">
+
+        <!-- البانر الرئيسي -->
+        <section class="hero-banner">
+            <span class="badge-luxury">بيع بالجملة فقط</span>
+            <h1>أرقى أكسسوارات النساء وزينة المنازل</h1>
+            <p>خياطة فاخرة وأكسسوارات شعر عالية الجودة. خصم 3% للطلبات من 10 باكيات فأكثر.</p>
+        </section>
+
+        <!-- أختام الثقة -->
+        <section class="trust-badges">
+            <div class="badge-item">
+                <i class="fa-solid fa-scissors"></i>
+                <span>خياطة محلية 100%</span>
+            </div>
+            <div class="badge-item">
+                <i class="fa-solid fa-percent"></i>
+                <span>خصم 3% عند 10+ قطع</span>
+            </div>
+            <div class="badge-item">
+                <i class="fa-solid fa-truck-fast"></i>
+                <span>توصيل لـ 58 ولاية</span>
+            </div>
+        </section>
+
+        <!-- شريط الفئات العلوي للزبون -->
+        <section class="categories-filter-section">
+            <div class="cat-filter-title"><i class="fa-solid fa-list-check"></i> الفئات:</div>
+            <div class="categories-bar" id="categoriesBar">
+                <!-- يتم توليد أزرار الفئات هنا برمجياً -->
+            </div>
+        </section>
+
+        <!-- شبكة عرض منتجات الفئة المختارة -->
+        <section class="catalog-section">
+            <div class="products-grid" id="productsGrid">
+                <!-- المنتجات تظهر هنا بناءً على الفئة المختارة -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- أزرار السلة العائمة (أسفل اليسار) -->
+    <div class="floating-cart-btn" id="floatingCartBtn" onclick="openCartModal()">
+        <div class="cart-icon-wrapper">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="cart-badge-count" id="cartTotalItems">0</span>
+        </div>
+        <div class="cart-btn-info">
+            <span class="cart-btn-title">عرض الفاتورة السريعة</span>
+            <span class="cart-btn-price" id="cartTotalPrice">0 د.ج</span>
+        </div>
+    </div>
+
+    <!-- نافذة السلة والفاتورة الشكلية -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-file-invoice-dollar"></i> فاتورة الطلبية (الجملة)</h3>
+                <span class="close-btn" onclick="toggleModal('cartModal')">&times;</span>
+            </div>
+
+            <p class="welcome-cart-msg">أهلاً بك! نسعد بخدمتك وشراكتك معنا. مراجعة الفاتورة وإدخال البيانات:</p>
+
+            <div class="cart-items-list" id="cartItemsList"></div>
+
+            <div class="discount-banner-note" id="discountNote" style="display: none;">
+                🎉 تم تطبيق خصم الجملة الكبيرة 3%!
+            </div>
+
+            <div class="cart-summary-box">
+                <div class="summary-row">
+                    <span>عدد القطع/الباكيات:</span>
+                    <strong id="summaryTotalQty">0</strong>
+                </div>
+                <div class="summary-row" id="discountRow" style="display: none;">
+                    <span>قيمة الخصم (3%):</span>
+                    <strong id="summaryDiscountPrice" style="color: #28a745;">0 د.ج</strong>
+                </div>
+                <div class="summary-row total">
+                    <span>المجموع النهائى:</span>
+                    <strong id="summaryFinalPrice">0 د.ج</strong>
+                </div>
+            </div>
+
+            <hr style="margin: 15px 0; border: none; border-top: 1px dashed #ccc;">
+
+            <!-- نموذج بيانات الزبون -->
+            <div class="customer-form">
+                <h4>بيانات التوصيل للزبون:</h4>
+                <input type="text" id="custName" placeholder="الاسم الكامل">
+                <input type="tel" id="custPhone" placeholder="رقم الهاتف">
+                <input type="text" id="custAddress" placeholder="الولاية والعنوان التفصيلي">
+                
+                <button class="btn-gps" onclick="getCurrentLocation()">
+                    <i class="fa-solid fa-location-dot"></i> مشاركة موقعي الجغرافي (GPS)
+                </button>
+                <input type="hidden" id="custGpsLink">
+                <span id="gpsStatus" class="gps-status-text"></span>
+            </div>
+
+            <div class="modal-actions" style="margin-top: 15px;">
+                <button class="btn-whatsapp" onclick="processOrder('whatsapp')">
+                    <i class="fa-brands fa-whatsapp"></i> إرسال الفاتورة عبر الواتساب
+                </button>
+                <button class="btn-telegram" onclick="processOrder('telegram')">
+                    <i class="fa-brands fa-telegram"></i> عبر التلغرام
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- لوحة تحكم المالك -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content admin-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-sliders"></i> لوحة إعدادات المالك</h3>
+                <span class="close-btn" onclick="toggleModal('adminModal')">&times;</span>
+            </div>
+
+            <div class="admin-section">
+                <h4>إضافة منتج جديد</h4>
+                <input type="text" id="admProdName" placeholder="اسم المنتج">
+                <input type="number" id="admProdPrice" placeholder="سعر الجملة للباكي (د.ج)">
+                <input type="text" id="admProdCat" placeholder="اسم الفئة (مثلاً: إكسسوارات شعر، زينة مطابخ)">
+                <select id="admProdBadge">
+                    <option value="">بدون شارة</option>
+                    <option value="جديد">جديد</option>
+                    <option value="الأكثر طلباً">الأكثر طلباً</option>
+                    <option value="خياطة محلية 100%">خياطة محلية 100%</option>
+                </select>
+
+                <div class="image-upload-box">
+                    <div class="img-preview-holder" id="imgPreviewHolder">
+                        <span>لم يتم اختيار صورة</span>
+                    </div>
+                    <input type="file" id="prodImgInput" accept="image/*" capture="environment" onchange="handleImageUpload(event)" style="display: none;">
+                    <button class="btn-secondary" onclick="document.getElementById('prodImgInput').click()">
+                        <i class="fa-solid fa-camera"></i> التقاط أو رفع صورة
+                    </button>
+                </div>
+
+                <button class="btn-submit" onclick="saveNewProduct()">حفظ ونشر المنتج</button>
+            </div>
+
+            <div class="admin-section">
+                <h4>إدارة وحذف المنتجات الحالية</h4>
+                <div id="adminProductsList" class="admin-prod-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
