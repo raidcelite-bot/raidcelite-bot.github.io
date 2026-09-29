@@ -144,7 +144,6 @@ body {
     margin-bottom: 4px;
 }
 
-/* شريط الفئات العلوي */
 .categories-filter-section {
     margin-bottom: 20px;
 }
@@ -181,7 +180,6 @@ body {
     border-color: var(--black);
 }
 
-/* شبكة المنتجات */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -289,7 +287,6 @@ body {
     font-weight: bold;
 }
 
-/* السلة العائمة */
 .floating-cart-btn {
     position: fixed;
     bottom: 15px;
@@ -345,7 +342,6 @@ body {
     color: var(--gold);
 }
 
-/* Modals */
 .modal {
     display: none;
     position: fixed;
