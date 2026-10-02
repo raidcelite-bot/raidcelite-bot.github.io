@@ -17,10 +17,15 @@ main{max-width:760px;margin:0 auto;padding:20px}
 .hero h2{font-size:25px;margin:16px 0 10px;line-height:1.5}
 .hero p{color:#cfcfcf;line-height:1.8}
 
-.perks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+.perks{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:20px 0}
 .perks div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 8px;text-align:center;font-size:14px;line-height:1.6}
 .perks b{display:block;font-size:24px;color:var(--gold);margin-bottom:6px}
 
+.notice{background:#fff8e1;border:1px solid var(--gold);color:#5c4700;border-radius:16px;padding:14px 16px;line-height:1.9;font-weight:600}
+.card.sold .pic{filter:grayscale(.85) brightness(.7)}
+.pic{position:relative}
+.badge{position:absolute;top:10px;right:10px;background:#c0182b;color:#fff;font-style:normal;font-size:14px;padding:6px 12px;border-radius:10px}
+.na{background:#f1f1f4;color:#c0182b;text-align:center;font-weight:700;border-radius:12px;padding:14px 8px}
 .section-title{font-size:20px;margin:26px 0 14px}
 .cats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
 .cat{background:#fff;border:1px solid var(--line);padding:12px 20px;border-radius:30px;font-weight:600}
