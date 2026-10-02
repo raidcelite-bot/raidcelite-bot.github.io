@@ -5,7 +5,7 @@ const DISCOUNT_FROM = 10;          // الخصم عند أكثر من 10 باك�
 const DISCOUNT_RATE = 0.03;        // 3%
 
 // ===== المنتجات =====
-// الصور: ارفعها في مجلد images بنفس الاسم (مثلاً images/qatifa-1.jpg)
+// الصور: ترفع مع الملفات مباشرة بنفس الاسم (مثلاً qatifa-1.jpg)
 const CATS = [
   { id: 'qatifa', name: 'شوشوات قطيفة', fabric: 'قطيفة' },
   { id: 'satin',  name: 'شوشوات ساتان', fabric: 'ساتان' },
@@ -23,7 +23,7 @@ CATS.forEach(c => {
   MODELS.slice(0, count).forEach(m => PRODUCTS.push({
     id: c.id + '-' + m.key, cat: c.id,
     name: 'شوشوات ' + c.fabric + ' ' + m.label,
-    price: m.price, img: 'images/' + c.id + '-' + m.key + '.jpg'
+    price: m.price, img: c.id + '-' + m.key + '.jpg'
   }));
 });
 
