@@ -76,3 +76,6 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-o
 .card.sold h4,.card.sold .price{text-decoration:line-through;text-decoration-thickness:2px;color:#888}
 
 img.logo{width:88px;height:88px;object-fit:cover;background:#fff;border:1px solid var(--line);display:block}
+
+.seo{max-width:760px;margin:30px auto 0;padding:0 20px;color:#8a8a93;font-size:12px;line-height:1.9;text-align:center}
+.seo p{margin-bottom:6px}
