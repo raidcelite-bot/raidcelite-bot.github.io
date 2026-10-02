@@ -1,7 +1,8 @@
 // ===== إعدادات المتجر (عدّلها هنا فقط) =====
 const WHATSAPP = '213660018673';   // رقم واتساب بالصيغة الدولية
 const TELEGRAM_USER = '';          // اسم مستخدم تليغرام بدون @ (اتركه فارغاً لاستعمال الرقم)
-const DISCOUNT_FROM = 10;          // الخصم عند أكثر من 10 باكيات
+const DISCOUNT_FROM = 15;          // الخصم عند 15 باكي أو أكثر
+const SOLD_OUT = ['satin-2', 'satin-4', 'crepe-2'];  // منتجات غير متوفرة (احذف الرمز لإعادة المنتج)
 const DISCOUNT_RATE = 0.03;        // 3%
 
 // ===== المنتجات =====
@@ -23,7 +24,7 @@ CATS.forEach(c => {
   MODELS.slice(0, count).forEach(m => PRODUCTS.push({
     id: c.id + '-' + m.key, cat: c.id,
     name: 'شوشوات ' + c.fabric + ' ' + m.label,
-    price: m.price, img: c.id + '-' + m.key + '.jpg'
+    soldout: SOLD_OUT.includes(c.id + '-' + m.key), price: m.price, img: c.id + '-' + m.key + '.jpg'
   }));
 });
 
@@ -36,7 +37,7 @@ const fmt = n => Math.round(n) + ' د.ج';
 function totals() {
   let qty = 0, sum = 0;
   PRODUCTS.forEach(p => { const q = cart[p.id] || 0; qty += q; sum += q * p.price; });
-  const disc = qty > DISCOUNT_FROM ? sum * DISCOUNT_RATE : 0;
+  const disc = qty >= DISCOUNT_FROM ? sum * DISCOUNT_RATE : 0;
   return { qty, sum, disc, total: sum - disc };
 }
 
@@ -47,15 +48,15 @@ function renderCats() {
 }
 function renderProducts() {
   $('products').innerHTML = PRODUCTS.filter(p => p.cat === activeCat).map(p => `
-    <article class="card">
-      <div class="pic" style="background-image:url('${p.img}')"></div>
+    <article class="card ${p.soldout ? 'sold' : ''}">
+      <div class="pic" style="background-image:url('${p.img}')">${p.soldout ? '<em class="badge">غير متوفر حالياً</em>' : ''}</div>
       <h4>${p.name}</h4>
       <div class="price">${p.price} د.ج / باكي</div>
-      <div class="step">
+      ${p.soldout ? '<div class="na">غير متوفر حالياً - نفدت الكمية</div>' : `<div class="step">
         <button data-add="${p.id}" aria-label="زيادة">+</button>
         <span id="q-${p.id}">${cart[p.id] || 0}</span>
         <button data-sub="${p.id}" aria-label="إنقاص">-</button>
-      </div>
+      </div>`}
     </article>`).join('');
 }
 function renderCart() {
@@ -78,6 +79,8 @@ function renderCart() {
   PRODUCTS.forEach(p => { const el = $('q-' + p.id); if (el) el.textContent = cart[p.id] || 0; });
 }
 function change(id, d) {
+  const pr = PRODUCTS.find(x => x.id === id);
+  if (!pr || pr.soldout) return;
   cart[id] = Math.max(0, (cart[id] || 0) + d);
   if (!cart[id]) delete cart[id];
   renderCart();
