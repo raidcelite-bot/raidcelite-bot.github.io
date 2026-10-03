@@ -128,13 +128,31 @@ function validate() {
   $('msg').textContent = ''; return true;
 }
 $('sendWA').onclick = () => {
-  if (validate()) window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(buildMessage())}`, '_blank');
+  if (validate()) { saveCustomer(); window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(buildMessage())}`, '_blank'); }
 };
 $('sendTG').onclick = () => {
   if (!validate()) return;
+  saveCustomer();
   const text = encodeURIComponent(buildMessage());
   const target = TELEGRAM_USER ? TELEGRAM_USER : '+' + WHATSAPP;
   window.open(`https://t.me/${target}?text=${text}`, '_blank');
 };
+
+// ===== تذكّر بيانات الزبون (تُحفظ في جهازه هو فقط) =====
+const KEY = 'ce_customer';
+function loadCustomer() {
+  try {
+    const d = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (d) { $('fName').value = d.n || ''; $('fPhone').value = d.p || ''; $('fAddr').value = d.a || ''; }
+  } catch (e) {}
+}
+function saveCustomer() {
+  try {
+    if ($('remember').checked) {
+      localStorage.setItem(KEY, JSON.stringify({ n: $('fName').value.trim(), p: $('fPhone').value.trim(), a: $('fAddr').value.trim() }));
+    } else localStorage.removeItem(KEY);
+  } catch (e) {}
+}
+loadCustomer();
 
 renderCats(); renderProducts(); renderCart();
